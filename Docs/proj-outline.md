@@ -11,7 +11,7 @@ Takeaway box recycling is non-existent, which is bad for everyone involved.
 
 - Many plastic boxes are not recycled and are thrown into landfill, which may enter marine ecosystems due to run-off **CITE**.
 
-- Production of boxes needs energy which may be sourced from non-green energy supplies. Upfront production and then reusing would reduce polution.
+- Production of boxes needs energy which may be sourced from non-green energy supplies. Upfront production and then reusing would reduce solution.
 
 ## Description of Service
 
@@ -59,7 +59,7 @@ There are two main algorithms that run the service. Restaurant demand calculatio
   
 ### Restaurant Demand Calculation
 
-Demand vaies in a weekly cycle **CITE**, and may spike due to specific events in the year. This depends on the resaurant in question, so it becomes crucial to get some insight into how much is needed at a given time.
+Demand varies in a weekly cycle **CITE**, and may spike due to specific events in the year. This depends on the restaurant in question, so it becomes crucial to get some insight into how much is needed at a given time.
 
 Roughly the calculation for restocking should be the difference between the projected stock for the following day (with a 10% buffer) and the remaining stock from the previous day. If there are already enough boxes on location 
 
@@ -69,7 +69,7 @@ $$
 
 ### Collection Route Planning
 
-After each day there exists a table of locations in the database, from which boxes will need to be collected the following morning. The algorithm will create shortest paths for multiple collectors using a travelling sailsman-like algorithm for multiple simultanious actors.
+After each day there exists a table of locations in the database, from which boxes will need to be collected the following morning. The algorithm will create the shortest paths for multiple collectors using a travelling salesman-like algorithm for multiple simultaneous actors.
 
 \pagebreak
 
@@ -79,7 +79,7 @@ There are a huge variety of web services available for developing an online serv
 
 The three main languages and frameworks considered:
 
-- Elixir, using Pheonix Liveview
+- Elixir, using Phoenix Liveview
 
 - Scala, using Play Framework/Akka HTTP
 
@@ -93,7 +93,7 @@ The three main languages and frameworks considered:
 | Performance | High concurrency, low latency (BEAM VM). | High performance (JVM-based). | Moderate; heavily depends on libraries and extensions (e.g., NumPy). |
 | Concurrency | Best-in-class concurrency using lightweight processes. | Concurrency via Akka (complex but powerful). | Limited; better for single-threaded tasks or via asyncio. |
 | Ecosystem | Young, focused ecosystem. Ideal for real-time systems. | Mature JVM ecosystem; versatile but complex. | Extremely broad ecosystem, libraries for almost everything. |
-| Tooling | Excellent debugging and monitoring tools (Observer, Logger). elixir-ls is fully featured. | Great build tools like sbt and IntelliJ support. metals doesn't include autocomplete. | Rich tools (pip, virtualenv, Jupyter for prototyping). |
+| Tooling | Excellent debugging and monitoring tools (Observer, Logger). elixir-ls is fully featured. | Great build tools like SBT and IntelliJ support. Metals doesn't include autocomplete. | Rich tools (pip, virtualenv, Jupyter for prototyping). |
 | My experience | Currently learning | No experience, but knowledge of similar language Haskell | Strong experience |
 
 \pagebreak
@@ -121,7 +121,7 @@ The three main languages and frameworks considered:
 
 ### Choice: Elixir ``
 
-The main draw for this project is for an enjoyable development experience. The project development tool *mix* is very handy from my experience and programing in Elixir feels more rewarding than having to learn Scala as a new language. Scala might have the performance edge for single threaded code but BEAM has concurrency covered. Python has poor performance for both, so I'm trading development time in for runtime performance. The only thing that bothers me is that I prefer strongly typed languages, but I think Elixir is better suited for this project in every other way. Concurrency is a hard thing to program, so its better if I stick to a language that makes it more accessable, its not easy in Python and I suspect it wouldn't be in Scala either.
+The main draw for this project is for an enjoyable development experience. The project development tool *mix* is very handy from my experience and programming in Elixir feels more rewarding than having to learn Scala as a new language. Scala might have the performance edge for single threaded code, but BEAM has concurrency covered. Python has poor performance for both, so I'm trading development time in for runtime performance. The only thing that bothers me is that I prefer strongly typed languages, but I think Elixir is better suited for this project in every other way. Concurrency is a hard thing to program, so it's better if I stick to a language that makes it more accessible, it's not easy in Python and I suspect it wouldn't be in Scala either.
 
 So the stack will be:
  
@@ -131,15 +131,15 @@ So the stack will be:
 
 - Build Tool: Mix
 
-- Web Framework: Pheonix LiveView
+- Web Framework: Phoenix LiveView
 
-- Database: PostgreSQL
+- Database: MySQL
 
-- Database migration: Ecto
+- Database migration: Ecto, MyXQL
 
 ## Next Steps
 
-Model the database
+Model the database Using EER
 
 Create a service diagram
 
@@ -147,5 +147,23 @@ Project setup
 
 Researching mapping technology for collection frontend
 
-[`󰌷` How do you integrate Google Maps API with Pheonix LiveView](https://medium.com/elemental-elixir/how-do-you-integrate-google-maps-api-with-phoenix-liveview-818366c63721)
+[`󰌷` How do you integrate Google Maps API with Phoenix LiveView](https://medium.com/elemental-elixir/how-do-you-integrate-google-maps-api-with-phoenix-liveview-818366c63721)
 
+\pagebreak
+
+EER Diagram
+============
+
+![Database Draft 1 EER](diagrams/draft1eer.png)
+
+First draft shows restaurants having a history, multiple boxes and multiple orders. *Current Stock* is used to count the number of boxes within *CurrentStock_has_Boxes*. *StockDemandHistory* records the number of boxes on premesis and the total needed per day for individual restaurants. Each order is given a record with a collection date (set to the morning after). When the current time exceeds the date, the program will update the *collectionDue?* boolean so that the boxes orders can be collected. Once collected the order should be removed from *Orders*, along with address details.
+
+Boxes are also tracked by ID and moved between all of the *\_has\_* tables when ownership of the box changes. This includes from restaurants to orders, and then back to the warehouse.
+
+\pagebreak
+
+![Database Draft 2 EER](diagrams/draft2eer.png)
+
+The improved version of the database extracts location data so that it can be stored more easily. Warehouses now have a location as well, which will improve collection pathfinding.
+
+Another change is that *StockDemandHistory* has been renamed to *RestaurantStockHistory* (amongst other renamings), and now has a timestamp and a $1:n$ relationship with restaurants.

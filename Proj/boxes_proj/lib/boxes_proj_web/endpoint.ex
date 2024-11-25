@@ -7,7 +7,7 @@ defmodule BoxesProjWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_boxes_proj_key",
-    signing_salt: "o+yDqz0A",
+    signing_salt: "brt8mHVV",
     same_site: "Lax"
   ]
 

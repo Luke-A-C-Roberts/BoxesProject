@@ -7,12 +7,6 @@
 # General application configuration
 import Config
 
-config :boxes_proj, BoxesProj.Repo,
-  database: "boxes_proj_repo",
-  username: "root",
-  password: "password",
-  hostname: "localhost"
-
 config :boxes_proj,
   ecto_repos: [BoxesProj.Repo],
   generators: [timestamp_type: :utc_datetime]
@@ -26,7 +20,7 @@ config :boxes_proj, BoxesProjWeb.Endpoint,
     layout: false
   ],
   pubsub_server: BoxesProj.PubSub,
-  live_view: [signing_salt: "XYWO3KjL"]
+  live_view: [signing_salt: "kyBU/0cD"]
 
 # Configures the mailer
 #

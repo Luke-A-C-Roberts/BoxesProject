@@ -167,3 +167,11 @@ Boxes are also tracked by ID and moved between all of the *\_has\_* tables when 
 The improved version of the database extracts location data so that it can be stored more easily. Warehouses now have a location as well, which will improve collection pathfinding.
 
 Another change is that *StockDemandHistory* has been renamed to *RestaurantStockHistory* (amongst other renamings), and now has a timestamp and a $1:n$ relationship with restaurants.
+
+Setup
+======
+
+```bash
+mix phx.new boxes_proj --database mysql
+cd boxes_proj
+```

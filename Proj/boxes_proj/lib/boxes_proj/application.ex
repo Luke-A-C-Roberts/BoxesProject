@@ -8,8 +8,8 @@ defmodule BoxesProj.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      BoxesProj.Repo,
       BoxesProjWeb.Telemetry,
+      BoxesProj.Repo,
       {DNSCluster, query: Application.get_env(:boxes_proj, :dns_cluster_query) || :ignore},
       {Phoenix.PubSub, name: BoxesProj.PubSub},
       # Start the Finch HTTP client for sending emails

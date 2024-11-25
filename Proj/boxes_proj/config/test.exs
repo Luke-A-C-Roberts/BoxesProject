@@ -6,8 +6,8 @@ import Config
 # to provide built-in test partitioning in CI environment.
 # Run `mix help test` for more information.
 config :boxes_proj, BoxesProj.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "root",
+  password: "",
   hostname: "localhost",
   database: "boxes_proj_test#{System.get_env("MIX_TEST_PARTITION")}",
   pool: Ecto.Adapters.SQL.Sandbox,
@@ -17,7 +17,7 @@ config :boxes_proj, BoxesProj.Repo,
 # you can enable the server option below.
 config :boxes_proj, BoxesProjWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "dRmy/YqN7HQOhG4rfDt1puXgadwj2uQ4BPWTNcBuxuLEPucK6AqEwCuVuee8fl9C",
+  secret_key_base: "i3cD3fqU7jw5EvjNsPUmunJw3XBTG9nb+Xw0tSVVr+EiAc2kAxGp7HABMOxcE33Y",
   server: false
 
 # In test we don't send emails

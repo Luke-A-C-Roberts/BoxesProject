@@ -2,8 +2,8 @@ import Config
 
 # Configure your database
 config :boxes_proj, BoxesProj.Repo,
-  username: "postgres",
-  password: "postgres",
+  username: "root",
+  password: "",
   hostname: "localhost",
   database: "boxes_proj_dev",
   stacktrace: true,
@@ -23,7 +23,7 @@ config :boxes_proj, BoxesProjWeb.Endpoint,
   check_origin: false,
   code_reloader: true,
   debug_errors: true,
-  secret_key_base: "CqUrEmsCq3/+PeUA7fOHvVC+O2Ntpqnfo7K/cQJNTwyuuueM92U5lG2WtPty0WO8",
+  secret_key_base: "etjF6l2Z0ksM4Xv6Z1D0dZ6eTBttKeOypQTPYYDhtPysfPZImdumGJSlQn3weDLc",
   watchers: [
     esbuild: {Esbuild, :install_and_run, [:boxes_proj, ~w(--sourcemap=inline --watch)]},
     tailwind: {Tailwind, :install_and_run, [:boxes_proj, ~w(--watch)]}

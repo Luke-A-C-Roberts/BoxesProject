@@ -119,23 +119,9 @@ The three main languages and frameworks considered:
 
 \pagebreak
 
-### Choice: Elixir ``
+### Choice: 
 
-The main draw for this project is for an enjoyable development experience. The project development tool *mix* is very handy from my experience and programming in Elixir feels more rewarding than having to learn Scala as a new language. Scala might have the performance edge for single threaded code, but BEAM has concurrency covered. Python has poor performance for both, so I'm trading development time in for runtime performance. The only thing that bothers me is that I prefer strongly typed languages, but I think Elixir is better suited for this project in every other way. Concurrency is a hard thing to program, so it's better if I stick to a language that makes it more accessible, it's not easy in Python and I suspect it wouldn't be in Scala either.
 
-So the stack will be:
- 
-- Language: Elixir
-
-- Package Manager: Hex
-
-- Build Tool: Mix
-
-- Web Framework: Phoenix LiveView
-
-- Database: MySQL
-
-- Database migration: Ecto, MyXQL
 
 ## Next Steps
 
@@ -168,10 +154,6 @@ The improved version of the database extracts location data so that it can be st
 
 Another change is that *StockDemandHistory* has been renamed to *RestaurantStockHistory* (amongst other renamings), and now has a timestamp and a $1:n$ relationship with restaurants.
 
-Setup
-======
+\pagebreak
 
-```bash
-mix phx.new boxes_proj --database mysql
-cd boxes_proj
-```
+![Database Draft 3 EER](diagrams/draft3eer.png)
